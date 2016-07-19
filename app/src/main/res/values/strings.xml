@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">ChaChing | Simply Money</string>
+
+    <string-array name="categories">
+        <item>Choose Category</item>
+        <item>Food</item>
+        <item>Entertainment</item>
+        <item>Housing/Rent</item>
+        <item>Family</item>
+        <item>Clothing</item>
+        <item>Transportation</item>
+        <item>Medical</item>
+        <item>Education</item>
+        <item>Personal</item>
+        <item>Travel</item>
+        <item>Savings</item>
+        <item>Bribes</item>
+        <item>Other</item>
+    </string-array>
+</resources>

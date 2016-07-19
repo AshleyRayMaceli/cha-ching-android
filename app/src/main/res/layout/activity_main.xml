@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.epicodus.chaching.MainActivity"
+    android:background="@color/primary_light">
+
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/purchaseNameEditText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:textAlignment="center"
+        android:hint="New Item"
+        android:textSize="32sp"
+        android:backgroundTint="@color/primary"
+        android:maxLines="2" />
+
+    <Spinner
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:id="@+id/purchaseCategorySpinner"
+        android:entries="@array/categories"
+        android:layout_marginTop="42dp"
+        android:textAlignment="center"
+        android:layout_below="@+id/costEditText"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/primary"
+        android:clickable="true"
+        android:contextClickable="false"
+        android:dropDownWidth="match_parent" />
+
+    <ImageButton
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/purchaseButton"
+        android:src="@drawable/ic_attach_money_black_24dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/circle"
+        android:backgroundTint="@color/primary"
+        android:layout_below="@+id/purchaseCategorySpinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/costEditText"
+        android:textAlignment="center"
+        android:hint="Cost"
+        android:textSize="32sp"
+        android:inputType="numberDecimal"
+        android:layout_below="@+id/purchaseNameEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/primary_dark" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="View Budget"
+        android:id="@+id/viewBudgetButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp"
+        android:background="@color/primary_dark"
+        android:textSize="24sp"
+        android:padding="5sp" />
+
+</RelativeLayout>
