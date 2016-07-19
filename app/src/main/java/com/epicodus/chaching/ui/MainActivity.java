@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.epicodus.chaching.Constants;
 import com.epicodus.chaching.R;
-import com.epicodus.chaching.models.Category;
+import com.epicodus.chaching.models.Purchase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -38,20 +38,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == mPurchaseButton) {
+
+            // Grab the user's input to create a new Purchase object
             String purchaseName = mPurchaseNameEditText.getText().toString();
             double cost = Double.parseDouble(mCostEditText.getText().toString());
+            String category = mCategorySpinner.getSelectedItem().toString();
+            Purchase purchase = new Purchase(purchaseName, cost, category);
 
-            //TODO: add conditional statement for preventing duplicate Categories
-            Category category = new Category(mCategorySpinner.getSelectedItem().toString());
-
-            DatabaseReference categoriesRef = FirebaseDatabase
+            // Set up Database Reference to the New Purchase
+            DatabaseReference purchasesRef = FirebaseDatabase
                     .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_CATEGORIES);
+                    .getReference(Constants.FIREBASE_CHILD_PURCHASES);
 
-            DatabaseReference pushRef = categoriesRef.push();
+            // Save the purchase along with its PushID
+            DatabaseReference pushRef = purchasesRef.push();
             String pushId = pushRef.getKey();
-            category.setPushId(pushId);
-            pushRef.setValue(category);
+            purchase.setPushId(pushId);
+            pushRef.setValue(purchase);
 
             Toast.makeText(this, "Cha-CHING!", Toast.LENGTH_SHORT).show();
         }
