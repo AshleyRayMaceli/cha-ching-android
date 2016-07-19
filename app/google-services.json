@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "172319645812",
+    "firebase_url": "https://cha-ching-android.firebaseio.com",
+    "project_id": "cha-ching-android",
+    "storage_bucket": "cha-ching-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172319645812:android:215f87d78fa31b40",
+        "android_client_info": {
+          "package_name": "com.epicodus.chaching"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172319645812-2j4v3crfbeaj80eg4oafrd8ord2hamql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epicodus.chaching",
+            "certificate_hash": "1C40BAC10076BB94C07D23507ECA2D4928AA6EA2"
+          }
+        },
+        {
+          "client_id": "172319645812-86e3c4tmo09h2e2433rmi5b7141cm40d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvfwA_kSHyhGB2IMmlJw2dTSNwRr8mKUs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172319645812-86e3c4tmo09h2e2433rmi5b7141cm40d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
