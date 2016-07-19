@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.epicodus.chaching.Constants;
 import com.epicodus.chaching.R;
@@ -46,7 +47,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             DatabaseReference categoriesRef = FirebaseDatabase
                     .getInstance()
                     .getReference(Constants.FIREBASE_CHILD_CATEGORIES);
-            categoriesRef.push().setValue(category);
+
+            DatabaseReference pushRef = categoriesRef.push();
+            String pushId = pushRef.getKey();
+            category.setPushId(pushId);
+            pushRef.setValue(category);
+
+            Toast.makeText(this, "Cha-CHING!", Toast.LENGTH_SHORT).show();
         }
     }
 }
