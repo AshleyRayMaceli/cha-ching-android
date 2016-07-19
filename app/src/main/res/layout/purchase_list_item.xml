@@ -39,7 +39,7 @@
             android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:text="Purchase Name"
-            android:id="@+id/categoryTextView"
+            android:id="@+id/purchaseNameTextView"
             android:textSize="30sp"
             android:layout_marginLeft="10dp"
             android:singleLine="false" />

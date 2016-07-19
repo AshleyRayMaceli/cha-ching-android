@@ -1,5 +1,6 @@
 package com.epicodus.chaching.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,9 @@ import com.epicodus.chaching.R;
 import com.epicodus.chaching.models.Purchase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
 
         mPurchaseButton.setOnClickListener(this);
+        mViewBudgetButton.setOnClickListener(this);
     }
 
     @Override
@@ -68,8 +73,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 Toast.makeText(this, "Please ensure all fields are filled.", Toast.LENGTH_SHORT).show();
             }
-
-
+        }
+        if (v == mViewBudgetButton) {
+            Intent intent = new Intent(MainActivity.this, PurchaseListActivity.class);
+            startActivity(intent);
         }
     }
 }
