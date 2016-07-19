@@ -43,20 +43,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String purchaseName = mPurchaseNameEditText.getText().toString();
             double cost = Double.parseDouble(mCostEditText.getText().toString());
             String category = mCategorySpinner.getSelectedItem().toString();
-            Purchase purchase = new Purchase(purchaseName, cost, category);
 
-            // Set up Database Reference to the New Purchase
-            DatabaseReference purchasesRef = FirebaseDatabase
-                    .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_PURCHASES);
+            if (!purchaseName.equals("") && cost != 0 && !category.equals("Choose Category")) {
 
-            // Save the purchase along with its PushID
-            DatabaseReference pushRef = purchasesRef.push();
-            String pushId = pushRef.getKey();
-            purchase.setPushId(pushId);
-            pushRef.setValue(purchase);
+                Purchase purchase = new Purchase(purchaseName, cost, category);
 
-            Toast.makeText(this, "Cha-CHING!", Toast.LENGTH_SHORT).show();
+                // Set up Database Reference to the New Purchase
+                DatabaseReference purchasesRef = FirebaseDatabase
+                        .getInstance()
+                        .getReference(Constants.FIREBASE_CHILD_PURCHASES);
+
+                // Save the purchase along with its PushID
+                DatabaseReference pushRef = purchasesRef.push();
+                String pushId = pushRef.getKey();
+                purchase.setPushId(pushId);
+                pushRef.setValue(purchase);
+
+                // Notify success and clear form fields
+                Toast.makeText(this, "Cha-CHING!", Toast.LENGTH_SHORT).show();
+                mPurchaseNameEditText.setText("");
+                mCostEditText.setText("0.00");
+                mCategorySpinner.setSelection(0);
+
+            } else {
+                Toast.makeText(this, "Please ensure all fields are filled.", Toast.LENGTH_SHORT).show();
+            }
+
+
         }
     }
 }

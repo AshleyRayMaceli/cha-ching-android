@@ -56,7 +56,9 @@
         android:layout_below="@+id/purchaseNameEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/primary_dark" />
+        android:backgroundTint="@color/primary_dark"
+        android:text="0.00"
+        android:drawableLeft="@drawable/ic_attach_money_black_24dp"/>
 
     <Button
         android:layout_width="150dp"
