@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.PurchaseListActivity"></activity>
+        <activity android:name=".ui.PurchaseListActivity" />
+        <activity android:name=".ui.ChartActivity"></activity>
     </application>
 
 </manifest>

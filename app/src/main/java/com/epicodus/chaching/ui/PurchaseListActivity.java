@@ -1,5 +1,6 @@
 package com.epicodus.chaching.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,8 +11,14 @@ import com.epicodus.chaching.R;
 import com.epicodus.chaching.adapters.FirebasePurchaseViewHolder;
 import com.epicodus.chaching.models.Purchase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,6 +26,7 @@ import butterknife.ButterKnife;
 public class PurchaseListActivity extends AppCompatActivity {
     private DatabaseReference mPurchaseReference;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
+    private ArrayList<Purchase> mPurchases = new ArrayList<>();
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
@@ -28,9 +36,13 @@ public class PurchaseListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_purchase_list);
         ButterKnife.bind(this);
 
+        Intent intent = getIntent();
+        String categorySelected = intent.getStringExtra("categorySelected");
+
         mPurchaseReference = FirebaseDatabase
                 .getInstance()
-                .getReference(Constants.FIREBASE_CHILD_PURCHASES);
+                .getReference(Constants.FIREBASE_CHILD_PURCHASES)
+                .child(categorySelected);
 
         setUpFirebaseAdapter();
     }

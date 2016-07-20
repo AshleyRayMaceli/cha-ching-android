@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // Set up Database Reference to the New Purchase
                 DatabaseReference purchasesRef = FirebaseDatabase
                         .getInstance()
-                        .getReference(Constants.FIREBASE_CHILD_PURCHASES);
+                        .getReference(Constants.FIREBASE_CHILD_PURCHASES)
+                        .child(category);
 
                 // Save the purchase along with its PushID
                 DatabaseReference pushRef = purchasesRef.push();
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         if (v == mViewBudgetButton) {
-            Intent intent = new Intent(MainActivity.this, PurchaseListActivity.class);
+            Intent intent = new Intent(MainActivity.this, ChartActivity.class);
             startActivity(intent);
         }
     }
