@@ -1,5 +1,8 @@
 package com.epicodus.chaching.models;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class Purchase {
     String name;
     double cost;

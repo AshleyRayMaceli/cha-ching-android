@@ -9,6 +9,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.epicodus.chaching.ui.ChartActivity">
 
+    <com.hookedonplay.decoviewlib.DecoView
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:id="@+id/dynamicArcView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
