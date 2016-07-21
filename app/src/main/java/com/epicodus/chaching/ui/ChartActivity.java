@@ -33,7 +33,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
     private DatabaseReference mPurchaseReference;
     private ArrayList<Purchase> mPurchases = new ArrayList<>();
     private Double[] categoryTotals = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    private String[] colors = {"#ff5252", "#00BCD4", "#FFC107", "#673AB7", "#8BC34A", "#CDDC39", "#607D8B", "#FF4081", "#FF4081", "#FFEB3B"};
+    private String[] colors = {"#FF5253", "#00BCD4", "#FFC107", "#673AB7", "#8BC34A", "#CDDC39", "#607D8B", "#FF4081", "#FF4081", "#FFEB3B"};
     private int purchasesTotal = 0;
 
     @Bind(R.id.specificCategoriesSpinner) Spinner mSpecificCategoriesSpinner;
@@ -105,7 +105,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
             SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor
                     (assignCategoryColor(mPurchases.get(i).getCategory())))
                     .setRange(0, 100, 0)
-                    .setLineWidth(40f)
+                    .setLineWidth(50f)
                     .setChartStyle(SeriesItem.ChartStyle.STYLE_DONUT)
                     .setInset(new PointF(insetAmount, insetAmount))
                     .build();
@@ -118,7 +118,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
                     .setDelay(incrementingAnimationDelay)
                     .build());
 
-            insetAmount += 45f;
+            insetAmount += 60f;
             incrementingAnimationDelay += 20;
 
         }

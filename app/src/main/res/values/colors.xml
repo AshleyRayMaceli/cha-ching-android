@@ -8,4 +8,16 @@
     <color name="secondary_text">#727272</color>
     <color name="icons">#212121</color>
     <color name="divider">#B6B6B6</color>
+
+    <color name="Food">#FF5253</color>
+    <color name="Entertainment">#00bcd4</color>
+    <color name="Housing">#ffc107</color>
+    <color name="Family">#673AB7</color>
+    <color name="Clothing">#8BC34A</color>
+    <color name="Bribes">#CDDC39</color>
+    <color name="Medical">#607D8B</color>
+    <color name="Education">#FF4081</color>
+    <color name="Travel">#FF4081</color>
+    <color name="Savings">#FFEB3B</color>
+
 </resources>
