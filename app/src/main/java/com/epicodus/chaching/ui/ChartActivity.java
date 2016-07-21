@@ -32,7 +32,8 @@ import butterknife.ButterKnife;
 public class ChartActivity extends AppCompatActivity implements View.OnClickListener {
     private DatabaseReference mPurchaseReference;
     private ArrayList<Purchase> mPurchases = new ArrayList<>();
-    private String[] colors = {"#ff5252", "#00BCD4", "#FFC107", "#673AB7", "#8BC34A", "#FF5722", "#607D8B", "#FF4081", "#FF4081", "#FFEB3B", "#FF5252"};
+    private Double[] categoryTotals = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    private String[] colors = {"#ff5252", "#00BCD4", "#FFC107", "#673AB7", "#8BC34A", "#CDDC39", "#607D8B", "#FF4081", "#FF4081", "#FFEB3B"};
     private int purchasesTotal = 0;
 
     @Bind(R.id.specificCategoriesSpinner) Spinner mSpecificCategoriesSpinner;
@@ -89,6 +90,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
     public void drawChart() {
 
         Float insetAmount = 0f;
+        int incrementingAnimationDelay = 400;
 
         mDynamicArcView.configureAngles(360, 270);
 
@@ -103,7 +105,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
             SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor
                     (assignCategoryColor(mPurchases.get(i).getCategory())))
                     .setRange(0, 100, 0)
-                    .setLineWidth(50f)
+                    .setLineWidth(40f)
                     .setChartStyle(SeriesItem.ChartStyle.STYLE_DONUT)
                     .setInset(new PointF(insetAmount, insetAmount))
                     .build();
@@ -113,14 +115,21 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
             mDynamicArcView.addEvent(new DecoEvent.Builder
                     (calculateBudgetPercentage(mPurchases.get(i).getCost()))
                     .setIndex(seriesIndex)
+                    .setDelay(incrementingAnimationDelay)
                     .build());
 
-            insetAmount += 60f;
+            insetAmount += 45f;
+            incrementingAnimationDelay += 20;
 
         }
     }
 
+//    cost should change to total category cost
     public int calculateBudgetPercentage(double cost) {
+        for (int i = 0; i < mPurchases.size(); i++) {
+
+        }
+
         int budgetPercentage = (int) ((cost / purchasesTotal) * 100);
 
         Log.v("BudgetPercentage", budgetPercentage + "");
@@ -145,7 +154,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
             case "Clothing": {
                 return colors[4];
             }
-            case "Transportation": {
+            case "Bribes": {
                 return colors[5];
             }
             case "Medical": {
@@ -159,9 +168,6 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
             }
             case "Savings": {
                 return colors[9];
-            }
-            case "Bribes": {
-                return colors[10];
             }
             default: {
                 return "#000000";
