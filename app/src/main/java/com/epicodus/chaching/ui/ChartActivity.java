@@ -31,6 +31,7 @@ import butterknife.ButterKnife;
 public class ChartActivity extends AppCompatActivity implements View.OnClickListener {
     private DatabaseReference mPurchaseReference;
     private ArrayList<Purchase> mPurchases = new ArrayList<>();
+    private int purchasesTotal = 0;
 
     @Bind(R.id.specificCategoriesSpinner) Spinner mSpecificCategoriesSpinner;
     @Bind(R.id.categorizedPurchasesButton) Button mCategorizedPurchasesButton;
@@ -45,8 +46,6 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
 
         mCategorizedPurchasesButton.setOnClickListener(this);
 
-        drawChart();
-
         mPurchaseReference = FirebaseDatabase
                 .getInstance()
                 .getReference(Constants.FIREBASE_CHILD_PURCHASES);
@@ -58,9 +57,13 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
                     for (DataSnapshot purchaseSnapshot : categoriesSnapshot.getChildren()) {
                         Purchase purchase = purchaseSnapshot.getValue(Purchase.class);
                         mPurchases.add(purchase);
-                        Log.v("List of Purchases: ", purchase.getCost() + "");
+
+                        purchasesTotal += purchase.getCost();
+                        Log.v("Purchase Total:", purchasesTotal + "");
                     }
                 }
+
+                drawChart();
             }
 
             @Override
@@ -68,6 +71,8 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
+
+
     }
 
     public void onClick(View view) {
@@ -80,7 +85,10 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void drawChart() {
-        mDynamicArcView.configureAngles(360, 0);
+
+        Float insetAmount = 0f;
+
+        mDynamicArcView.configureAngles(360, 270);
 
         mDynamicArcView.addSeries(new SeriesItem.Builder(Color.argb(0, 218, 218, 218))
                 .setRange(0, 100, 100)
@@ -88,32 +96,32 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
                 .setChartStyle(SeriesItem.ChartStyle.STYLE_DONUT)
                 .build());
 
-        SeriesItem seriesItem1 = new SeriesItem.Builder(Color.parseColor("#ff5252"))
-                .setRange(0, 100, 0)
-                .setLineWidth(50f)
-                .setChartStyle(SeriesItem.ChartStyle.STYLE_DONUT)
-                .build();
+        for (int i = 0; i < mPurchases.size(); i++) {
 
-        SeriesItem seriesItem2 = new SeriesItem.Builder(Color.argb(255, 50, 120, 120))
-                .setRange(0, 100, 0)
-                .setLineWidth(50f)
-                .setChartStyle(SeriesItem.ChartStyle.STYLE_DONUT)
-                .setInset(new PointF(50f, 50f))
-                .build();
+            SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#ff5252"))
+                    .setRange(0, 100, 0)
+                    .setLineWidth(50f)
+                    .setChartStyle(SeriesItem.ChartStyle.STYLE_DONUT)
+                    .setInset(new PointF(insetAmount, insetAmount))
+                    .build();
 
-        SeriesItem seriesItem3 = new SeriesItem.Builder(Color.parseColor("#689f38"))
-                .setRange(0, 100, 0)
-                .setLineWidth(50f)
-                .setChartStyle(SeriesItem.ChartStyle.STYLE_DONUT)
-                .setInset(new PointF(100f, 100f))
-                .build();
+            int seriesIndex = mDynamicArcView.addSeries(seriesItem);
 
-        int series1Index = mDynamicArcView.addSeries(seriesItem1);
-        int series2Index = mDynamicArcView.addSeries(seriesItem2);
-        int series3Index = mDynamicArcView.addSeries(seriesItem3);
+            mDynamicArcView.addEvent(new DecoEvent.Builder
+                    (calculateBudgetPercentage(mPurchases.get(i).getCost()))
+                    .setIndex(seriesIndex)
+                    .build());
 
-        mDynamicArcView.addEvent(new DecoEvent.Builder(60).setIndex(series1Index).build());
-        mDynamicArcView.addEvent(new DecoEvent.Builder(50).setIndex(series2Index).build());
-        mDynamicArcView.addEvent(new DecoEvent.Builder(70).setIndex(series3Index).build());
+            insetAmount += 60f;
+
+        }
+    }
+
+    public int calculateBudgetPercentage(double cost) {
+        int budgetPercentage = (int) ((cost / purchasesTotal) * 100);
+
+        Log.v("BudgetPercentage", budgetPercentage + "");
+
+        return budgetPercentage;
     }
 }
