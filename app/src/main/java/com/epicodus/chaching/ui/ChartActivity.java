@@ -32,8 +32,7 @@ import butterknife.ButterKnife;
 public class ChartActivity extends AppCompatActivity implements View.OnClickListener {
     private DatabaseReference mPurchaseReference;
     private ArrayList<Purchase> mPurchases = new ArrayList<>();
-    private Double[] categoryTotals = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    private String[] colors = {"#FF5253", "#00BCD4", "#FFC107", "#673AB7", "#8BC34A", "#CDDC39", "#607D8B", "#FF4081", "#FF4081", "#FFEB3B"};
+    private int[] categoryTotals = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private int purchasesTotal = 0;
 
     @Bind(R.id.specificCategoriesSpinner) Spinner mSpecificCategoriesSpinner;
@@ -66,6 +65,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
 
+                calculateCategoryTotals();
                 drawChart();
             }
 
@@ -100,10 +100,10 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
                 .setChartStyle(SeriesItem.ChartStyle.STYLE_DONUT)
                 .build());
 
-        for (int i = 0; i < mPurchases.size(); i++) {
+        for (int i = 0; i < categoryTotals.length; i++) {
 
             SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor
-                    (assignCategoryColor(mPurchases.get(i).getCategory())))
+                    (assignCategoryColor(i)))
                     .setRange(0, 100, 0)
                     .setLineWidth(50f)
                     .setChartStyle(SeriesItem.ChartStyle.STYLE_DONUT)
@@ -113,7 +113,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
             int seriesIndex = mDynamicArcView.addSeries(seriesItem);
 
             mDynamicArcView.addEvent(new DecoEvent.Builder
-                    (calculateBudgetPercentage(mPurchases.get(i).getCost()))
+                    (calculateBudgetPercentage(categoryTotals[i]))
                     .setIndex(seriesIndex)
                     .setDelay(incrementingAnimationDelay)
                     .build());
@@ -124,49 +124,80 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-//    cost should change to total category cost
-    public int calculateBudgetPercentage(double cost) {
+    public void calculateCategoryTotals() {
         for (int i = 0; i < mPurchases.size(); i++) {
+            double purchaseCost = mPurchases.get(i).getCost();
+            String purchaseCategory = mPurchases.get(i).getCategory();
 
+            if (purchaseCategory.equals("Bribes")) {
+                categoryTotals[0] += purchaseCost;
+            } else if (purchaseCategory.equals("Clothing")) {
+                categoryTotals[1] += purchaseCost;
+            } else if (purchaseCategory.equals("Education")) {
+                categoryTotals[2] += purchaseCost;
+            } else if (purchaseCategory.equals("Entertainment")) {
+                categoryTotals[3] += purchaseCost;
+            } else if (purchaseCategory.equals("Family")) {
+                categoryTotals[4] += purchaseCost;
+            } else if (purchaseCategory.equals("Food")) {
+                categoryTotals[5] += purchaseCost;
+            } else if (purchaseCategory.equals("Housing")) {
+                categoryTotals[6] += purchaseCost;
+            } else if (purchaseCategory.equals("Medical")) {
+                categoryTotals[7] += purchaseCost;
+            } else if (purchaseCategory.equals("Savings")) {
+                categoryTotals[8] += purchaseCost;
+            } else if (purchaseCategory.equals("Travel")) {
+                categoryTotals[9] += purchaseCost;
+            } else {
+                Log.e("Error", "Invalid Category");
+            }
         }
 
-        int budgetPercentage = (int) ((cost / purchasesTotal) * 100);
-
-        Log.v("BudgetPercentage", budgetPercentage + "");
-
-        return budgetPercentage;
     }
 
-    public String assignCategoryColor(String category) {
-        switch (category) {
-            case "Food": {
+    public int calculateBudgetPercentage(int categoryCost) {
+
+        double budgetPercentage = (((double) categoryCost / (double) purchasesTotal) * 100.00);
+
+        Log.v("categoryCost: ", (double) categoryCost + "");
+        Log.v("purchasesTotal: ", (double) purchasesTotal + "");
+        Log.v("budgetPercentage: ", (double) budgetPercentage + "");
+
+        return (int) budgetPercentage;
+    }
+
+    public String assignCategoryColor(int categoryIndex) {
+        String[] colors = {"#cddc39", "#8bc34a", "#ff4081", "#00bcd4", "#673ab7", "#ff5253", "#ffc107", "#607d8b", "#ffeb3b", "#ff4081"};
+        switch (categoryIndex) {
+            case 0: {
                 return colors[0];
             }
-            case "Entertainment": {
+            case 1: {
                 return colors[1];
             }
-            case "Housing": {
+            case 2: {
                 return colors[2];
             }
-            case "Family": {
+            case 3: {
                 return colors[3];
             }
-            case "Clothing": {
+            case 4: {
                 return colors[4];
             }
-            case "Bribes": {
+            case 5: {
                 return colors[5];
             }
-            case "Medical": {
+            case 6: {
                 return colors[6];
             }
-            case "Education": {
+            case 7: {
                 return colors[7];
             }
-            case "Travel": {
+            case 8: {
                 return colors[8];
             }
-            case "Savings": {
+            case 9: {
                 return colors[9];
             }
             default: {

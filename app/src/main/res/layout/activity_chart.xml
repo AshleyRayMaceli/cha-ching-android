@@ -94,7 +94,7 @@
                 android:drawableLeft="@android:drawable/btn_star"
                 android:text="Fun"
                 android:id="@+id/textView4"
-                android:drawableTint="@color/Entertainment"
+                android:drawableTint="@color/Fun"
                 android:paddingBottom="5dp"
                 android:textSize="25sp"/>
 
