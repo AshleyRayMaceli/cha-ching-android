@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.epicodus.chaching.ui.ChartActivity">
+    tools:context="com.epicodus.chaching.ui.ChartActivity"
+    android:textAlignment="center">
 
     <com.hookedonplay.decoviewlib.DecoView
         android:layout_width="match_parent"
@@ -18,21 +19,28 @@
 
     <Spinner
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/specificCategoriesSpinner"
         android:entries="@array/specificCategories"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp" />
+        android:layout_marginBottom="37dp"
+        android:layout_above="@+id/categorizedPurchasesButton"
+        android:layout_alignLeft="@+id/categorizedPurchasesButton"
+        android:layout_alignStart="@+id/categorizedPurchasesButton"
+        android:layout_alignRight="@+id/categorizedPurchasesButton"
+        android:layout_alignEnd="@+id/categorizedPurchasesButton"
+        android:textAlignment="center" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="See specific purchases"
+        android:text="View Category"
         android:id="@+id/categorizedPurchasesButton"
+        android:background="@drawable/round_button"
+        android:textColor="@android:color/white"
+        android:padding="10dp"
+        android:backgroundTint="@color/primary"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp" />
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:orientation="horizontal"
