@@ -59,9 +59,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
                     for (DataSnapshot purchaseSnapshot : categoriesSnapshot.getChildren()) {
                         Purchase purchase = purchaseSnapshot.getValue(Purchase.class);
                         mPurchases.add(purchase);
-
                         purchasesTotal += purchase.getCost();
-                        Log.v("Purchase Total:", purchasesTotal + "");
                     }
                 }
 
@@ -159,10 +157,6 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
     public int calculateBudgetPercentage(int categoryCost) {
 
         double budgetPercentage = (((double) categoryCost / (double) purchasesTotal) * 100.00);
-
-        Log.v("categoryCost: ", (double) categoryCost + "");
-        Log.v("purchasesTotal: ", (double) purchasesTotal + "");
-        Log.v("budgetPercentage: ", (double) budgetPercentage + "");
 
         return (int) budgetPercentage;
     }

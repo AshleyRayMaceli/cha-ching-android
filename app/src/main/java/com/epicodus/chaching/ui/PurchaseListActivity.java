@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.epicodus.chaching.Constants;
 import com.epicodus.chaching.R;
+import com.epicodus.chaching.adapters.AllPurchasesListAdapter;
 import com.epicodus.chaching.adapters.FirebasePurchaseViewHolder;
 import com.epicodus.chaching.models.Purchase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -29,6 +30,7 @@ public class PurchaseListActivity extends AppCompatActivity {
     private DatabaseReference mPurchaseReference;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private ArrayList<Purchase> mPurchases = new ArrayList<>();
+    private AllPurchasesListAdapter mAdapter;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
@@ -46,13 +48,43 @@ public class PurchaseListActivity extends AppCompatActivity {
                     .getInstance()
                     .getReference(Constants.FIREBASE_CHILD_PURCHASES);
 
+            mPurchaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    for (DataSnapshot categoriesSnapshot : snapshot.getChildren()) {
+                        for (DataSnapshot purchaseSnapshot : categoriesSnapshot.getChildren()) {
+                            Purchase purchase = purchaseSnapshot.getValue(Purchase.class);
+                            mPurchases.add(purchase);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            setUpRecyclerAdapter();
+
         } else {
+
             mPurchaseReference = FirebaseDatabase
                     .getInstance()
                     .getReference(Constants.FIREBASE_CHILD_PURCHASES)
                     .child(categorySelected);
+
+            setUpFirebaseAdapter();
         }
-        setUpFirebaseAdapter();
+    }
+
+    private void setUpRecyclerAdapter() {
+        mAdapter = new AllPurchasesListAdapter(getApplicationContext(), mPurchases);
+        mRecyclerView.setAdapter(mAdapter);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PurchaseListActivity.this);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
     }
 
     private void setUpFirebaseAdapter() {
@@ -72,6 +104,5 @@ public class PurchaseListActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mFirebaseAdapter.cleanup();
     }
 }
