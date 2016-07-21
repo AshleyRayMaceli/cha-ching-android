@@ -23,6 +23,7 @@ import com.hookedonplay.decoviewlib.charts.SeriesItem;
 import com.hookedonplay.decoviewlib.charts.SeriesLabel;
 import com.hookedonplay.decoviewlib.events.DecoEvent;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -31,6 +32,7 @@ import butterknife.ButterKnife;
 public class ChartActivity extends AppCompatActivity implements View.OnClickListener {
     private DatabaseReference mPurchaseReference;
     private ArrayList<Purchase> mPurchases = new ArrayList<>();
+    private String[] colors = {"#ff5252", "#00BCD4", "#FFC107", "#673AB7", "#8BC34A", "#FF5722", "#607D8B", "#FF4081", "#FF4081", "#FFEB3B", "#FF5252"};
     private int purchasesTotal = 0;
 
     @Bind(R.id.specificCategoriesSpinner) Spinner mSpecificCategoriesSpinner;
@@ -98,7 +100,8 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
 
         for (int i = 0; i < mPurchases.size(); i++) {
 
-            SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#ff5252"))
+            SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor
+                    (assignCategoryColor(mPurchases.get(i).getCategory())))
                     .setRange(0, 100, 0)
                     .setLineWidth(50f)
                     .setChartStyle(SeriesItem.ChartStyle.STYLE_DONUT)
@@ -123,5 +126,46 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
         Log.v("BudgetPercentage", budgetPercentage + "");
 
         return budgetPercentage;
+    }
+
+    public String assignCategoryColor(String category) {
+        switch (category) {
+            case "Food": {
+                return colors[0];
+            }
+            case "Entertainment": {
+                return colors[1];
+            }
+            case "Housing": {
+                return colors[2];
+            }
+            case "Family": {
+                return colors[3];
+            }
+            case "Clothing": {
+                return colors[4];
+            }
+            case "Transportation": {
+                return colors[5];
+            }
+            case "Medical": {
+                return colors[6];
+            }
+            case "Education": {
+                return colors[7];
+            }
+            case "Travel": {
+                return colors[8];
+            }
+            case "Savings": {
+                return colors[9];
+            }
+            case "Bribes": {
+                return colors[10];
+            }
+            default: {
+                return "#000000";
+            }
+        }
     }
 }

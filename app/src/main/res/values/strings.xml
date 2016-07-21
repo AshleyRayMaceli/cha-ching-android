@@ -11,11 +11,9 @@
         <item>Transportation</item>
         <item>Medical</item>
         <item>Education</item>
-        <item>Personal</item>
         <item>Travel</item>
         <item>Savings</item>
         <item>Bribes</item>
-        <item>Other</item>
     </string-array>
 
     <string-array name="specificCategories">
@@ -28,10 +26,8 @@
         <item>Transportation</item>
         <item>Medical</item>
         <item>Education</item>
-        <item>Personal</item>
         <item>Travel</item>
         <item>Savings</item>
         <item>Bribes</item>
-        <item>Other</item>
     </string-array>
 </resources>
