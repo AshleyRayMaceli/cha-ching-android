@@ -133,7 +133,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
                 categoryTotals[1] += purchaseCost;
             } else if (purchaseCategory.equals("Education")) {
                 categoryTotals[2] += purchaseCost;
-            } else if (purchaseCategory.equals("Entertainment")) {
+            } else if (purchaseCategory.equals("Fun")) {
                 categoryTotals[3] += purchaseCost;
             } else if (purchaseCategory.equals("Family")) {
                 categoryTotals[4] += purchaseCost;
