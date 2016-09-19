@@ -13,7 +13,7 @@ _An Android app centered around keeping track of expenses. Users can add purchas
 ## Setup/Installation Requirements
 
 * _Ensure that Android Studio is installed on your machine._
-* _Using the command line, clone the cha-ching-android repository to your desktop using the command "git clone https://github.com/AdamCraig/cha-ching-android"_
+* _Using the command line, clone the repository to your desktop using the command "git clone https://github.com/AshleyRayMaceli/cha-ching-android"_
 * _Open the package using Android Studio, choose your emulator, and run the app._
 
 ## Known Bugs
